@@ -1,19 +1,23 @@
-# flutter_application_1
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+NAMA    :ARDHANA PRASASTA
+NIM     :362358302081
+KELAS   :2B TRPL
 
 
-1. github ![alt text](image.png)
+
+1.MEMBUAT NEW PROJECT
+![alt text](image-1.png)
+
+
+ 2.MEMBUAT GITHUB YANG DIHUBUNGKAN  KEDALAM VISUAL CODE
+ ![alt text](image.png)
+
+ 3.REPOSITORY DI GIT
+ ![alt text](image-2.png)
+
+ 4.MEMBUAT TEKS WIDGET
+ ![alt text](image-3.png)
+
+ kode: [text](lib/komponen/text.dart)
+
+5.
+ 
