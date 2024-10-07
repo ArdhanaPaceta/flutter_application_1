@@ -1,49 +1,46 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'komponen/text.dart';
-import 'komponen/image.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return const MaterialApp(
+      title: 'Contoh Date Picker',
+      home: MyHomePage(title: 'Contoh Date Picker'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  // Variable/State untuk menyimpan tanggal yang dipilih
+  DateTime selectedDate = DateTime.now();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    if (_counter > 0) {
+  // Fungsi untuk membuka DatePicker dan mengupdate state
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != selectedDate) {
       setState(() {
-        _counter--;
+        selectedDate = picked;
       });
     }
   }
@@ -52,42 +49,38 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const TeksWidget(), // Uncommented this line to display the text widget
-            const ImageWidget(), // Uncommented this line to display the image widget
-            const Text(
-              'You have pushed the button this many times:',
-            ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              // Menampilkan tanggal yang dipilih dengan format yang rapi
+              "${selectedDate.toLocal()}".split(' ')[0],
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _selectDate(context); // Memanggil fungsi DatePicker
+              },
+              child: const Text('Pilih Tanggal'),
+            ),
+            const SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: () {
+                // Menampilkan tanggal yang dipilih di console
+                print(
+                    "Tanggal yang dipilih: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}");
+              },
+              child: const Text('Print Tanggal'),
             ),
           ],
         ),
-      )
-//       floatingActionButton: Row(
-//         mainAxisAlignment: MainAxisAlignment.end,
-//         children: <Widget>[
-//           FabWidget(), // Ensure that FabWidget is defined in fab_widget.dart
-//           FloatingActionButton(
-//             onPressed: _decrementCounter,
-//             tooltip: 'Decrement',
-//             child: const Icon(Icons.remove),
-//           ),
-//           SizedBox(width: 20),
-//           FloatingActionButton(
-//             onPressed: _incrementCounter,
-//             tooltip: 'Increment',
-//             child: const Icon(Icons.add),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+      ),
+    );
+  }
+}
